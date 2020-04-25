@@ -5,15 +5,8 @@ orbs:
   orb-tools: circleci/orb-tools@9.1.0
 
 workflows:
-  btd:
+  btd_dev:
     jobs:
-      - hold-for-approval:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
-          type: approval
       - orb-tools/lint
       - orb-tools/pack
       - orb-tools/publish-dev:
@@ -26,6 +19,16 @@ workflows:
           name: trigger-integration-dev
           requires:
             - orb-tools/publish-dev
+
+  btd:
+    jobs:
+      - hold-for-approval:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
+          type: approval
       - orb-tools/dev-promote-prod-from-git-tag:
           context: orb-publishing
           orb-name: argent-smith/opam
