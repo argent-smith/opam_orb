@@ -26,33 +26,34 @@ examples:
       version: 2.1
 
       orbs:
-        opam: argent-smith/opam@dev:third
-
-      x-job-defaults_debian: &job_defaults_debian
-        executor:
-          name: opam/default
-          image: ocaml/opam
-          tag: debian-10-ocaml-4.09
-        depext_pkgs: conf-m4
-
-      x-job-defaults_alpine: &job_defaults_alpine
-        executor:
-          name: opam/default
-          image: ocaml/opam
-          tag: alpine-3.11-ocaml-4.09
-        depext_pkgs: conf-m4
+        opam: argent-smith/opam@1.0.1
 
       workflows:
-        test_debian:
-          jobs:
-            - opam/run_tests:
-                <<: *job_defaults_debian
-            - opam/build_package:
-                <<: *job_defaults_debian
-
         test_alpine:
           jobs:
             - opam/run_tests:
-                <<: *job_defaults_alpine
+                depext_pkgs: conf-m4
+                executor:
+                  image: ocaml/opam
+                  name: opam/default
+                  tag: alpine-3.11-ocaml-4.09
             - opam/build_package:
-                <<: *job_defaults_alpine
+                depext_pkgs: conf-m4
+                executor:
+                  image: ocaml/opam
+                  name: opam/default
+                  tag: alpine-3.11-ocaml-4.09
+        test_debian:
+          jobs:
+            - opam/run_tests:
+                depext_pkgs: conf-m4
+                executor:
+                  image: ocaml/opam
+                  name: opam/default
+                  tag: debian-10-ocaml-4.09
+            - opam/build_package:
+                depext_pkgs: conf-m4
+                executor:
+                  image: ocaml/opam
+                  name: opam/default
+                  tag: debian-10-ocaml-4.09
