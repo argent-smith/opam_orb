@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Install local package dependencies with
   `opam install . --deps-only --with-test -y`

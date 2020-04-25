@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Installs dependencies and runs local package's test suite
 

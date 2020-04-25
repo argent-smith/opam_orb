@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Installs depexts for explicitly given list of packages
   with `opam depext <package hanes>`

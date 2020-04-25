@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Runs local package's test suite with
   `dune test`

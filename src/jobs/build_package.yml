@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Does simple OPAM package build in current directory.
 

@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Builds the given local package with command
   `opam install . --with-test -y`

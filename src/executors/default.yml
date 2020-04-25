@@ -1,6 +1,4 @@
 ---
-version: 2.1
-
 description: |
   Executes a job in a given OPAM v2.* container
 
