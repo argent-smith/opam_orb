@@ -7,6 +7,13 @@ orbs:
 workflows:
   btd:
     jobs:
+      - hold-for-approval:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
+          type: approval
       - orb-tools/lint
       - orb-tools/pack
       - orb-tools/publish-dev:
@@ -19,14 +26,14 @@ workflows:
           name: trigger-integration-dev
           requires:
             - orb-tools/publish-dev
-      - orb-tools/publish:
+      - orb-tools/dev-promote-prod-from-git-tag:
           context: orb-publishing
-          orb-ref: "argent-smith/opam@${CIRCLE_TAG}"
+          orb-name: argent-smith/opam
+          add-pr-comment: false
           requires:
-            - orb-tools/lint
-            - orb-tools/pack
+            - hold-for-approval
           filters:
             tags:
-              only: /^\d+.*/
+              only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
