@@ -5,7 +5,7 @@ orbs:
   orb-tools: circleci/orb-tools@9.1.0
 
 workflows:
-  btd_dev:
+  btd:
     jobs:
       - orb-tools/lint
       - orb-tools/pack
@@ -19,3 +19,14 @@ workflows:
           name: trigger-integration-dev
           requires:
             - orb-tools/publish-dev
+      - orb-tools/publish:
+          context: orb-publishing
+          orb-ref: "argent-smith/opam@${CIRCLE_TAG}"
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+          filters:
+            tags:
+              only: /^\d+.*/
+            branches:
+              ignore: /.*/
