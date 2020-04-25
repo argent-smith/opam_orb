@@ -1,4 +1,7 @@
-# opam_orb
+# OPAM orb for CircleCI
+
+[![argent-smith](https://circleci.com/gh/argent-smith/opam_orb.svg?style=shield)](https://circleci.com/gh/argent-smith/opam_orb)
+
 An opinionated OPAM workbench for CircleCI.
 
 This orb supposes you are CI'ing a standard OCaml package
