@@ -1,0 +1,21 @@
+---
+version: 2.1
+
+description: |
+  Executes a job in a given OPAM v2.* container
+
+parameters:
+  image:
+    description: |
+      Supposed to be OPAM v2.* official container name
+    type: string
+    default: "ocaml/opam2"
+
+  tag:
+    description: |
+      Supposed to be OPAM v2.* docker image tag
+    type: string
+    default: "debian-stable"
+
+docker:
+  - image: "<< parameters.image >>:<< parameters.tag >>"

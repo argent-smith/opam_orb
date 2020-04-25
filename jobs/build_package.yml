@@ -1,0 +1,26 @@
+---
+version: 2.1
+
+description: |
+  Does simple OPAM package build in current directory.
+
+parameters:
+  executor:
+    description: |
+      Executor name
+    type: executor
+    default: default
+
+  depext_pkgs:
+    description: |
+      Space-separated list of packages that need depexts
+    type: string
+    default: ""
+
+executor: "<< parameters.executor >>"
+
+steps:
+  - checkout
+  - install_depexts:
+      pkgs: "<< parameters.depext_pkgs >>"
+  - build_package

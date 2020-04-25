@@ -1,0 +1,58 @@
+---
+version: 2.1
+
+description: |
+  An opinionated OPAM workbench for CircleCI.
+
+  This orb supposes you are CI'ing a standard OCaml package
+  with correct <package_name>.opam file in its root and
+  a Dune build system (probably with a test suite).
+
+  This orb was written to use official ocaml/opam docker images.
+
+  MirageOS support is under construction.
+
+display:
+  home_url: https://githib.com/argent-smith/opam_orb
+  source_url: https://githib.com/argent-smith/opam_orb
+
+examples:
+  example_opam_package:
+    description: |
+      Building and testing a package with two different OS images
+      of ocaml/opam
+
+    usage:
+      version: 2.1
+
+      orbs:
+        opam: argent-smith/opam@dev:third
+
+      x-job-defaults_debian: &job_defaults_debian
+        executor:
+          name: opam/default
+          image: ocaml/opam
+          tag: debian-10-ocaml-4.09
+        depext_pkgs: conf-m4
+
+      x-job-defaults_alpine: &job_defaults_alpine
+        executor:
+          name: opam/default
+          image: ocaml/opam
+          tag: alpine-3.11-ocaml-4.09
+        depext_pkgs: conf-m4
+
+      workflows:
+        test_debian:
+          jobs:
+            - opam/run_tests:
+                <<: *job_defaults_debian
+            - opam/build_package:
+                <<: *job_defaults_debian
+
+        test_alpine:
+          jobs:
+            - opam/run_tests:
+                <<: *job_defaults_alpine
+            - opam/build_package:
+                <<: *job_defaults_alpine

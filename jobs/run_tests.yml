@@ -1,0 +1,27 @@
+---
+version: 2.1
+
+description: |
+  Installs dependencies and runs local package's test suite
+
+parameters:
+  executor:
+    description: |
+      Executor name
+    type: executor
+    default: default
+
+  depext_pkgs:
+    description: |
+      Space-separated list of packages that need depexts
+    type: string
+    default: ""
+
+executor: "<< parameters.executor >>"
+
+steps:
+  - checkout
+  - install_depexts:
+      pkgs: "<< parameters.depext_pkgs >>"
+  - install_dependencies
+  - run_tests

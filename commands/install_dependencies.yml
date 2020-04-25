@@ -1,0 +1,12 @@
+---
+version: 2.1
+
+description: |
+  Install local package dependencies with
+  `opam install . --deps-only --with-test -y`
+
+steps:
+  - run:
+      name: Install project dependencies
+      command: |
+        opam install . --deps-only --with-test -y

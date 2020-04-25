@@ -1,0 +1,12 @@
+---
+version: 2.1
+
+description: |
+  Runs local package's test suite with
+  `dune test`
+
+steps:
+  - run:
+      name: Run project test suite
+      command: |
+        opam config exec -- dune test

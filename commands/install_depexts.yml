@@ -1,0 +1,19 @@
+---
+version: 2.1
+
+description: |
+  Installs depexts for explicitly given list of packages
+  with `opam depext <package hanes>`
+
+parameters:
+  pkgs:
+    description: |
+      Space-separated list of packages
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Install OS dependencies
+      command: |
+        opam depext << parameters.pkgs >>
