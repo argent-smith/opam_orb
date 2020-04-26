@@ -3,7 +3,28 @@ description: |
   Install local package dependencies with
   `opam install . --deps-only --with-test -y`
 
+parameters:
+  cache_depends:
+    description: |
+      Whether to cache dependencies
+    type: boolean
+    default: false
+
+  depends_cache_reference_file:
+    description: |
+      File to use as a checksum reference for dependencies caching
+    type: string
+    default: ""
+
 steps:
+  - when:
+      condition: << parameters.cache_depends >>
+      steps:
+      - run: echo "YAY!!! WE'RE CACHING DEPENDS!!!"
+      - run: echo "DEPS REFERENCE FILE << parameters.depends_cache_reference_file >>"
+  # - restore_cache:
+  #     keys:
+  #       - v1-opam-packages-{{ checksum "<< ${DEPENDS_CACHE_REF_FILE} >>" }}
   - run:
       name: Install project dependencies
       command: |

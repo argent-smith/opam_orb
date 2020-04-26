@@ -15,11 +15,25 @@ parameters:
     type: string
     default: ""
 
-executor: "<< parameters.executor >>"
+  cache_depends:
+    description: |
+      Whether to cache dependencies
+    type: boolean
+    default: false
+
+  depends_cache_reference_file:
+    description: |
+      File to use as a checksum reference for dependencies caching
+    type: string
+    default: ""
+
+executor: << parameters.executor >>
 
 steps:
   - checkout
   - install_depexts:
-      pkgs: "<< parameters.depext_pkgs >>"
-  - install_dependencies
+      pkgs: << parameters.depext_pkgs >>
+  - install_dependencies:
+      cache_depends: << parameters.cache_depends >>
+      depends_cache_reference_file: << parameters.depends_cache_reference_file >>
   - run_tests
