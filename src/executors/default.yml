@@ -15,17 +15,5 @@ parameters:
     type: string
     default: "debian-stable"
 
-  cache_depends:
-    description: |
-      Whether to cache dependencies
-    type: boolean
-    default: false
-
-  depends_cache_reference_file:
-    description: |
-      File to use as a checksum reference for dependencies caching
-    type: string
-    default: ""
-
 docker:
   - image: "<< parameters.image >>:<< parameters.tag >>"

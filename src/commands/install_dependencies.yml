@@ -14,18 +14,30 @@ parameters:
     description: |
       File to use as a checksum reference for dependencies caching
     type: string
-    default: ""
+    default: ''
 
 steps:
   - when:
       condition: << parameters.cache_depends >>
       steps:
-      - run: echo "YAY!!! WE'RE CACHING DEPENDS!!!"
-      - run: echo "DEPS REFERENCE FILE << parameters.depends_cache_reference_file >>"
-  # - restore_cache:
-  #     keys:
-  #       - v1-opam-packages-{{ checksum "<< ${DEPENDS_CACHE_REF_FILE} >>" }}
+        - run:
+            name: Linking dependencies directory
+            command: |
+              eval $(opam env)
+              ln -vs ${OPAM_SWITCH_PREFIX}/lib ~/deps-lib
+        - restore_cache:
+            keys:
+              - v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
+              - v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-
+              - v7-opam-packages-
   - run:
       name: Install project dependencies
       command: |
         opam install . --deps-only --with-test -y
+  - when:
+      condition: << parameters.cache_depends >>
+      steps:
+        - save_cache:
+            paths:
+              - ~/deps-lib
+            key: v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
