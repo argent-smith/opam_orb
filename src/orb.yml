@@ -13,8 +13,8 @@ description: |
   MirageOS support is under construction.
 
 display:
-  home_url: https://githib.com/argent-smith/opam_orb
-  source_url: https://githib.com/argent-smith/opam_orb
+  home_url: https://github.com/argent-smith/opam_orb
+  source_url: https://github.com/argent-smith/opam_orb
 
 examples:
   example_opam_package:
