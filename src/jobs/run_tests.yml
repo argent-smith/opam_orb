@@ -9,6 +9,12 @@ parameters:
     type: executor
     default: default
 
+  switch_name:
+    description: |
+      Used OPAM switch name a.k.a. compiler version
+      (OPAM docker image may contain several of them).
+    type: string
+
   depext_pkgs:
     description: |
       Space-separated list of packages that need depexts
@@ -31,6 +37,8 @@ executor: << parameters.executor >>
 
 steps:
   - checkout
+  - link_local_switch:
+      switch_name: << parameters.switch_name >>
   - install_depexts:
       pkgs: << parameters.depext_pkgs >>
   - install_dependencies:

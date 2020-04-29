@@ -1,0 +1,16 @@
+---
+description: |
+  Links the given OPAM switch locally with
+  `opam switch link <switch_name> .`
+
+parameters:
+  switch_name:
+    description: |
+      OPAM switch name a.k.a. compiler version
+    type: string
+
+steps:
+  - run:
+      name: Link switch << parameters.switch_name >> to project root
+      command: |
+        opam switch link << parameters.switch_name >> .

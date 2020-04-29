@@ -20,16 +20,11 @@ steps:
   - when:
       condition: << parameters.cache_depends >>
       steps:
-        - run:
-            name: Linking dependencies directory
-            command: |
-              eval $(opam env)
-              ln -vs ${OPAM_SWITCH_PREFIX}/lib ~/deps-lib
         - restore_cache:
             keys:
-              - v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
-              - v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-
-              - v7-opam-packages-
+              - v12-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
+              - v12-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-
+              - v12-opam-packages-
   - run:
       name: Install project dependencies
       command: |
@@ -39,5 +34,11 @@ steps:
       steps:
         - save_cache:
             paths:
-              - ~/deps-lib
-            key: v7-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
+              - _opam/bin
+              - _opam/doc
+              - _opam/.opam-switch
+              - _opam/man
+              - _opam/share
+              - _opam/lib
+              - _opam/sbin
+            key: v12-opam-packages-{{ checksum "<< parameters.depends_cache_reference_file >>" }}-{{ .Branch }}
