@@ -15,11 +15,25 @@ parameters:
     type: string
     default: ""
 
+  opam_upgrade:
+    description: |
+      Whether to run "opam update && opam upgrade" before
+      the test
+    type: boolean
+    default: false
+
 executor: "<< parameters.executor >>"
 
 steps:
   - checkout
   - install_depexts:
       pkgs: "<< parameters.depext_pkgs >>"
+  - when:
+      condition:
+        equal: [true, << parameters.opam_upgrade >>]
+      steps:
+        - opam_upgrade
+        - install_depexts:
+            pkgs: "<< parameters.depext_pkgs >>"
   - install_dependencies
   - run_tests
