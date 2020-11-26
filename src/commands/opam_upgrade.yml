@@ -1,0 +1,12 @@
+---
+description: |
+  Upgrades OPAM packages in current switch
+  `opam update -y && opam upgrade -y`
+
+steps:
+  - run:
+      name: OPAM update
+      command: |
+        opam repository set-url default https://opam.ocaml.org
+        opam update -y
+        opam upgrade -y

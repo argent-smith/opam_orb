@@ -5,6 +5,6 @@ description: |
 
 steps:
   - run:
-      name: Build project package
+      name: Package build
       command: |
         opam install . --with-test -y
